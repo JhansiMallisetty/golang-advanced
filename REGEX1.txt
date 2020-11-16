@@ -1,0 +1,233 @@
+package main  
+  
+import (  
+    "fmt"  
+    "regexp"  
+)  
+  
+func main() {  
+    re := regexp.MustCompile("google.com")  
+    fmt.Println(re.FindString("golang.com"))  
+    fmt.Println(re.FindString("playground.org"))  
+    fmt.Println(re.FindString("fb.com"))  
+}  
+
+
+google.com
+
+
+
+Program exited.
+
+
+2)
+
+package main  
+  
+import (  
+    "fmt"  
+    "regexp"  
+)  
+  
+func main() {  
+    re := regexp.MustCompile(".com")  
+    fmt.Println(re.FindStringIndex("google.com"))  
+    fmt.Println(re.FindStringIndex("golang.org"))  
+    fmt.Println(re.FindStringIndex("goplayground.com"))  
+}  
+
+
+[6 10]
+[]
+[12 16]
+
+Program exited.
+
+3)
+
+package main  
+  
+import (  
+    "fmt"  
+    "regexp"  
+)  
+  
+func main() {  
+    re := regexp.MustCompile("j([a-z]+)ing")  
+    fmt.Println(re.FindStringSubmatch("jumping"))  
+    fmt.Println(re.FindStringSubmatch("joining"))  
+}  
+
+[jumping ump]
+[joining oin]
+
+Program exited.
+
+4)
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	matched, err := regexp.Match(`golang.*`, []byte(`kloudne`))
+	fmt.Println(matched, err)
+	matched, err = regexp.Match(`python.*`, []byte(`kloudone`))
+	fmt.Println(matched, err)
+	matched, err = regexp.Match(`sq(l`, []byte(`seafood`))
+	fmt.Println(matched, err)
+
+}
+
+false <nil>
+false <nil>
+false error parsing regexp: missing closing ): `sq(l`
+
+Program exited.
+
+5)
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	fmt.Println(regexp.QuoteMeta(`Escaping symbols like: .+*?()|[]{}^$`))
+}
+
+Escaping symbols like: \.\+\*\?\(\)\|\[\]\{\}\^\$
+
+Program exited.
+
+6)
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	content := []byte(`
+	# comment line
+            kloud: one
+	kloud: learn
+
+	# another comment line
+	go: lang
+`)
+
+	
+	pattern := regexp.MustCompile(`(?m)(?P<key>\w+):\s+(?P<value>\w+)$`)
+
+	
+	template := []byte("$key=$value\n")
+
+	result := []byte{}
+
+	
+	for _, submatches := range pattern.FindAllSubmatchIndex(content, -1) {
+		
+		result = pattern.Expand(result, template, content, submatches)
+	}
+	fmt.Println(string(result))
+}
+
+kloud=one
+kloud=learn
+go=lang
+
+
+Program exited.
+
+7)
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	re := regexp.MustCompile(`go?`)
+	fmt.Printf("%q\n", re.Find([]byte(`kloudone`)))
+
+}
+
+""
+
+Program exited.
+
+8)
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	re := regexp.MustCompile(`go?`)
+	fmt.Printf("%q\n", re.FindAll([]byte(`kloud one`), 1))
+
+}
+
+[]
+
+Program exited.
+
+9)
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	re := regexp.MustCompile(`a.`)
+	fmt.Println(re.FindAllString("jhansi", -1))
+	fmt.Println(re.FindAllString("jhansi", 2))
+	fmt.Println(re.FindAllString("suji", -1))
+	fmt.Println(re.FindAllString("suji", -1))
+}
+
+[an]
+[an]
+[]
+[]
+
+Program exited.
+
+10)
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	re := regexp.MustCompile(`j(x*)n`)
+	fmt.Printf("%q\n", re.FindAllStringSubmatch("-jn-", -1))
+	fmt.Printf("%q\n", re.FindAllStringSubmatch("-jnjn-", -1))
+	fmt.Printf("%q\n", re.FindAllStringSubmatch("-ja-nu-", -1))
+	fmt.Printf("%q\n", re.FindAllStringSubmatch("-janu-jn-", -1))
+}
+
+[["jn" ""]]
+[["jn" ""] ["jn" ""]]
+[]
+[["jn" ""]]
+
+Program exited.

@@ -1,0 +1,392 @@
+
+1)
+
+package main 
+  
+import "fmt"
+  
+
+type circle interface { 
+  
+    
+    Tarea() float64 
+    Volume() float64 
+} 
+  
+func main() { 
+  
+    var c circle 
+    fmt.Println("Value of the circle  is: ", c) 
+    fmt.Printf("Type of the circle  is: %T ", c) 
+} 
+
+
+
+Value of the circle  is:  <nil>
+Type of the circle  is: <nil> 
+Program exited.
+
+2)
+
+package main 
+  
+import "fmt"
+  
+func myfun(a interface{}) { 
+  
+    
+    val := a.(string) 
+    fmt.Println("company: ", val) 
+    
+} 
+func main() { 
+  
+    var val interface { 
+    } = "kloudone"
+      
+    myfun(val) 
+} 
+
+
+company:  kloudone
+
+Program exited.
+
+
+3)
+
+package main 
+  
+import "fmt"
+  
+func fun(a interface{}) { 
+    value, x := a.(float64) 
+    fmt.Println(value, x) 
+} 
+func main() { 
+  
+    var b interface { 
+    } = 10.0 
+  
+    fun(b) 
+  
+    var c interface { 
+    } = "kloudlearn"
+  
+    fun(c) 
+} 
+
+10 true
+0 false
+
+Program exited.
+
+4)
+
+package main 
+  
+import "fmt"
+  
+func function(a interface{}) { 
+  
+     
+    switch a.(type) { 
+  
+    case int: 
+        fmt.Println("Type: int, Value:", a.(int)) 
+    case string: 
+        fmt.Println("\nType: string, Value: ", a.(string)) 
+    case float64: 
+        fmt.Println("\nType: float64, Value: ", a.(float64)) 
+    default: 
+        fmt.Println("\nType not found") 
+    } 
+} 
+  
+
+func main() { 
+  
+    function("jhansi") 
+    function(6) 
+    function(true) 
+}
+
+Type: string, Value:  jhansi
+Type: int, Value: 6
+
+Type not found
+
+Program exited.
+
+5)
+
+package main
+
+import (
+	"fmt"
+)
+
+
+type VowelsFinder interface {
+	FindVowels() []rune
+}
+
+type MyString string
+
+
+func (ms MyString) FindVowels() []rune {
+	var vowels []rune
+	for _, rune := range ms {
+		if rune == 'a' || rune == 'e' || rune == 'i' || rune == 'o' || rune == 'u' {
+			vowels = append(vowels, rune)
+		}
+	}
+	return vowels
+}
+
+func main() {
+	name := MyString("Sam Anderson")
+	var v VowelsFinder
+	v = name // possible since MyString implements VowelsFinder
+	fmt.Printf("Vowels are %c", v.FindVowels())
+
+}
+
+
+Vowels are [a e o]
+Program exited.
+
+6)
+
+package main
+
+import (
+	"fmt"
+)
+
+type SalaryCalculator interface {
+	CalculateSalary() int
+}
+
+type Permanent struct {
+	empId    int
+	basicpay int
+	pf       int
+}
+
+type Contract struct {
+	empId    int
+	basicpay int
+}
+
+
+func (p Permanent) CalculateSalary() int {
+	return p.basicpay + p.pf
+}
+
+
+func (c Contract) CalculateSalary() int {
+	return c.basicpay
+}
+
+
+func totalExpense(s []SalaryCalculator) {
+	expense := 0
+	for _, v := range s {
+		expense = expense + v.CalculateSalary()
+	}
+	fmt.Printf("Total Expense Per Month $%d", expense)
+}
+
+func main() {
+	pemp1 := Permanent{
+		empId:    1,
+		basicpay: 25000,
+		pf:       20,
+	}
+	pemp2 := Permanent{
+		empId:    2,
+		basicpay: 36000,
+		pf:       30,
+	}
+	cemp1 := Contract{
+		empId:    3,
+		basicpay: 53000,
+	}
+	employees := []SalaryCalculator{pemp1, pemp2, cemp1}
+	totalExpense(employees)
+
+}
+
+
+Total Expense Per Month $114050
+Program exited.
+
+
+7)
+
+package main  
+import (  
+   "fmt"  
+)  
+type vehicle interface {  
+   accelerate()  
+}  
+func foo(v vehicle)  {  
+   fmt.Println(v)  
+     
+}  
+type car struct {  
+   model string  
+   color string  
+}  
+func (c car) accelerate()  {  
+   fmt.Println("Accelrating?")  
+     
+}  
+type toyota struct {  
+  model string  
+   color string  
+   speed int  
+}  
+func (t toyota) accelerate(){  
+   fmt.Println("I am toyota, I accelerate fast?")  
+}  
+func main() {  
+   c1 := car{"BMW","black"}  
+   t1:= toyota{"Toyota","Red", 100}  
+   c1.accelerate()  
+   t1.accelerate()  
+   foo(c1)  
+   foo(t1)  
+}  
+
+Accelrating?
+I am toyota, I accelerate fast?
+{BMW black}
+{Toyota Red 100}
+
+Program exited.
+
+8)
+
+package main
+
+import (
+	"fmt"
+)
+
+type Worker interface {
+	Work()
+}
+
+type Person struct {
+	name string
+}
+
+func (p Person) Work() {
+	fmt.Println(p.name, "is working")
+}
+
+func describe(w Worker) {
+	fmt.Printf("Interface type %T\n value %v\n", w, w)
+}
+
+func main() {
+	p := Person{
+		name: "JHANSI",
+	}
+	var w Worker = p
+	describe(w)
+	w.Work()
+}
+
+
+Interface type main.Person
+ value {JHANSI}
+JHANSI is working
+
+Program exited.
+
+9)
+
+package main
+
+import (
+	"fmt"
+)
+
+func myfunc(i interface{}) {
+	fmt.Printf("Type = %T, value = %v\n", i, i)
+}
+
+func main() {
+	s := "KLOUD ONE"
+	myfunc(s)
+	i := 20
+	myfunc(i)
+	strt := struct {
+		name string
+	}{
+		name: "JHANSI J",
+	}
+	myfunc(strt)
+}
+
+
+Type = string, value = KLOUD ONE
+Type = int, value = 20
+Type = struct { name string }, value = {JHANSI J}
+
+Program exited.
+
+
+
+10)
+
+package main 
+  
+import "fmt"
+  
+
+type tank interface { 
+  
+    
+    Tarea() float64 
+    Volume() float64 
+} 
+  
+type myvalue struct { 
+    radius float64 
+    height float64 
+} 
+  
+
+
+func (m myvalue) Tarea() float64 { 
+  
+    return 2*m.radius*m.height + 
+        2*3.14*m.radius*m.radius 
+} 
+  
+func (m myvalue) Volume() float64 { 
+  
+    return 3.14 * m.radius * m.radius * m.height 
+} 
+  
+
+func main() { 
+  
+    
+    var t tank 
+    t = myvalue{15, 7} 
+    fmt.Println("Area of tank :", t.Tarea()) 
+    fmt.Println("Volume of tank:", t.Volume()) 
+} 
+
+
+
+Area of tank : 1623
+Volume of tank: 4945.5
+
+Program exited.

@@ -1,0 +1,260 @@
+1)
+
+
+package main  
+import "fmt"  
+import "time"  
+func worker(done chan bool) {  
+   fmt.Print("working...\n")  
+   time.Sleep(time.Second)  
+   fmt.Println(" work done")  
+   done <- true  
+}  
+func main() {  
+   done := make(chan bool, 1)  
+   go worker(done)  
+   <-done  
+}  
+
+working...
+ work done
+
+Program exited.
+
+
+2)
+
+package main 
+  
+import "fmt"
+  
+func myfunc(ch chan int) { 
+  
+    fmt.Println(234 + <-ch) 
+} 
+func main() { 
+    fmt.Println("start golang learning") 
+    
+    ch := make(chan int) 
+  
+    go myfunc(ch) 
+    ch <- 23 
+    fmt.Println("End  golang") 
+} 
+
+start golang learning
+257
+End  golang
+
+Program exited.
+
+3)
+
+package main 
+  
+import "fmt"
+  
+
+func main() { 
+  
+    
+    mychnl := make(chan string) 
+  
+   
+    go func() { 
+        mychnl <- "KLOUD"
+        mychnl <- "kloud"
+        mychnl <- "Kloud"
+        mychnl <- "KloudOne"
+        close(mychnl) 
+    }() 
+  
+    
+    for res := range mychnl { 
+        fmt.Println(res) 
+    } 
+} 
+
+KLOUD
+kloud
+Kloud
+KloudOne
+
+Program exited.
+
+4)
+
+package main 
+  
+import "fmt"
+
+ 
+func main() { 
+  
+    
+    mychnl := make(chan string, 4) 
+    mychnl <- "KLOUD"
+    mychnl <- "kloud"
+    mychnl <- "one"
+    mychnl <- "KLOUDONE"
+  
+    
+    fmt.Println("Length of the channel is: ", len(mychnl)) 
+} 
+
+Length of the channel is:  4
+
+Program exited.
+
+5)
+
+package main 
+  
+import "fmt"
+  
+ 
+func main() { 
+  
+    
+    mychnl := make(chan string, 5) 
+    mychnl <- "kloud"
+    mychnl <- "one"
+    mychnl <- "Kloud"
+    mychnl <- "kloudone"
+  
+    
+    fmt.Println("Capacity of the channel is: ", cap(mychnl)) 
+} 
+
+Capacity of the channel is:  5
+
+Program exited.
+
+6)
+
+package main 
+  
+import "fmt"
+  
+ func myfun(mychnl chan string) { 
+  
+    for v := 0; v < 4; v++ { 
+        mychnl <- "kloudlearn"
+    } 
+    close(mychnl) 
+} 
+  
+
+func main() { 
+  
+    
+    c := make(chan string) 
+  
+    
+    go myfun(c) 
+  
+    
+    for { 
+        res, ok := <-c 
+        if ok == false { 
+            fmt.Println("Channel Close ", ok) 
+            break
+        } 
+        fmt.Println("Channel Open ", res, ok) 
+    } 
+} 
+
+Channel Open  kloudlearn true
+Channel Open  kloudlearn true
+Channel Open  kloudlearn true
+Channel Open  kloudlearn true
+Channel Close  false
+
+Program exited.
+
+7)
+
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+     mychannel := make(chan int)
+    fmt.Println("Value of the channel: ", mychannel) 
+    fmt.Printf("Type of the channel: %T ", mychannel) 
+  
+   
+    channel1 := make(chan int) 
+    fmt.Println("\nValue of the channel1: ", channel1) 
+    fmt.Printf("Type of the channel1: %T ", channel1) 
+} 
+
+Value of the channel:  0xc00005e060
+Type of the channel: chan int 
+Value of the channel1:  0xc00005e0c0
+Type of the channel1: chan int 
+Program exited.
+
+8)
+
+package main
+
+import "fmt"
+
+func main() {
+	ch := make(chan int, 2)
+	ch <- 1
+	ch <- 2
+	fmt.Println(<-ch)
+	fmt.Println(<-ch)
+}
+
+1
+2
+
+Program exited.
+
+9)
+
+package main
+
+import "fmt"
+
+func main() {
+	var a chan int
+	if a == nil {
+		fmt.Println("channel a is nil, going to define it")
+		a = make(chan int)
+		fmt.Printf("Type of a is %T", a)
+	}
+}
+
+channel a is nil, going to define it
+Type of a is chan int
+Program exited.
+
+10)
+
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func hello() {
+	fmt.Println("Hello  kloudone")
+}
+func main() {
+	go hello()
+	time.Sleep(1 * time.Second)
+	fmt.Println("chennai")
+}
+
+Hello  kloudone
+chennai
+
+Program exited.

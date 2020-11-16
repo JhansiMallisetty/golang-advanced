@@ -1,0 +1,171 @@
+1)
+
+package main   
+import (   
+    "fmt"
+    "sync" 
+) 
+var GFG  = 0 
+  
+ 
+func worker(wg *sync.WaitGroup) {   
+    GFG = GFG + 1 
+  
+    
+    wg.Done() 
+} 
+func main() {  
+  
+    
+    var w sync.WaitGroup 
+  
+    
+    for i := 0; i < 100; i++ { 
+        w.Add(1)         
+        go worker(&w) 
+    } 
+    
+    w.Wait() 
+    fmt.Println("Value of x", GFG) 
+}
+
+
+Value of x 100
+
+Program exited.
+
+2)
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+func main() {
+
+	
+	var state = make(map[int]int)
+
+	
+	var mutex = &sync.Mutex{}
+
+	
+	var readOps uint64
+	var writeOps uint64
+
+	
+	for r := 0; r < 100; r++ {
+		go func() {
+			total := 0
+			for {
+
+				
+				key := rand.Intn(5)
+				mutex.Lock()
+				total += state[key]
+				mutex.Unlock()
+				atomic.AddUint64(&readOps, 1)
+
+				
+				time.Sleep(time.Millisecond)
+			}
+		}()
+	}
+
+	
+	for w := 0; w < 10; w++ {
+		go func() {
+			for {
+				key := rand.Intn(5)
+				val := rand.Intn(100)
+				mutex.Lock()
+				state[key] = val
+				mutex.Unlock()
+				atomic.AddUint64(&writeOps, 1)
+				time.Sleep(time.Millisecond)
+			}
+		}()
+	}
+
+	
+	time.Sleep(time.Second)
+
+	
+	readOpsFinal := atomic.LoadUint64(&readOps)
+	fmt.Println("readOps:", readOpsFinal)
+	writeOpsFinal := atomic.LoadUint64(&writeOps)
+	fmt.Println("writeOps:", writeOpsFinal)
+
+	
+	mutex.Lock()
+	fmt.Println("state:", state)
+	mutex.Unlock()
+}
+
+readOps: 100100
+writeOps: 10010
+state: map[0:34 1:84 2:72 3:3 4:28]
+
+Program exited.
+
+3)
+
+package main  
+import (  
+   "sync"  
+   "time"  
+   "math/rand"  
+   "fmt"  
+)  
+var wait sync.WaitGroup  
+var count int  
+var mutex sync.Mutex  
+func  increment(s string)  {  
+   for i :=0;i<10;i++ {  
+      mutex.Lock()  
+      x := count  
+      x++;  
+      time.Sleep(time.Duration(rand.Intn(10))*time.Millisecond)  
+      count = x;  
+      fmt.Println(s, i,"Count: ",count)  
+      mutex.Unlock()  
+        
+   }  
+   wait.Done()  
+     
+}  
+func main(){  
+   wait.Add(2)  
+   go increment("kloud: ")  
+   go increment("one: ")  
+   wait.Wait()  
+   fmt.Println("last count value " ,count)  
+}  
+
+one:  0 Count:  1
+one:  1 Count:  2
+one:  2 Count:  3
+kloud:  0 Count:  4
+kloud:  1 Count:  5
+one:  3 Count:  6
+one:  4 Count:  7
+kloud:  2 Count:  8
+kloud:  3 Count:  9
+kloud:  4 Count:  10
+one:  5 Count:  11
+one:  6 Count:  12
+kloud:  5 Count:  13
+kloud:  6 Count:  14
+one:  7 Count:  15
+one:  8 Count:  16
+kloud:  7 Count:  17
+kloud:  8 Count:  18
+kloud:  9 Count:  19
+one:  9 Count:  20
+last count value  20
+
+Program exited.

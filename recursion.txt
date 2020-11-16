@@ -1,0 +1,286 @@
+1)
+
+package main
+
+import "fmt"
+
+func factorial(i int)int {
+   if(i <= 1) {
+      return 1
+   }
+   return i * factorial(i - 1)
+}
+func main() { 
+   var i int = 10
+   fmt.Printf("Factorial of %d is %d", i, factorial(i))
+}
+
+Factorial of 10 is 3628800
+Program exited.
+
+2)
+
+package main
+
+import "fmt"
+
+func fibonaci(i int) (ret int) {
+   if i == 0 {
+      return 0
+   }
+   if i == 1 {
+      return 1
+   }
+   return fibonaci(i-1) + fibonaci(i-2)
+}
+func main() {
+   var i int
+   for i = 0; i < 10; i++ {
+      fmt.Printf("%d ", fibonaci(i))
+   }
+}
+
+0 1 1 2 3 5 8 13 21 34 
+Program exited.
+
+3)
+
+
+package main
+
+import "fmt"
+
+
+func fact(n int) int {
+	if n == 0 {
+		return 1
+	}
+	return n * fact(n-1)
+}
+
+func main() {
+	fmt.Println(fact(5))
+}
+
+
+120
+
+Program exited.
+
+4)
+
+package main 
+  
+import ( 
+    "fmt"
+) 
+  
+
+func print_num(n int) { 
+      
+    
+    if n > 0 { 
+        fmt.Println(n) 
+          
+       
+        print_num(n-1) 
+    } 
+} 
+  
+
+func main() { 
+      
+    
+    print_num(5) 
+} 
+
+5
+4
+3
+2
+1
+
+Program exited.
+
+
+5)
+
+package main 
+  
+import ( 
+    "fmt"
+) 
+  
+
+func print_num(n int) { 
+      
+    
+    if n > 0 { 
+          
+        
+        print_num(n-1) 
+          
+        
+        fmt.Println(n) 
+    } 
+} 
+  
+
+func main() { 
+      
+    
+    print_num(5) 
+} 
+
+1
+2
+3
+4
+5
+
+Program exited.
+
+6)
+
+package main 
+  
+import ( 
+    "fmt"
+) 
+  
+
+func main() { 
+      
+    
+        var anon_func func(int) 
+           
+    
+        anon_func = func(number int) { 
+      
+        
+            if number == 0 { 
+                    return 
+            } else { 
+            fmt.Println(number) 
+              
+            
+                    anon_func(number-1) 
+            } 
+        } 
+      
+    
+        anon_func(5) 
+} 
+
+
+5
+4
+3
+2
+1
+
+Program exited.
+
+7)
+
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func recurFact(v int) int {
+    if (v == 0) { 
+        return 1
+    } else { 
+        return v * recurFact(v-1) 
+    }
+}
+ 
+func main() {
+    n := recurFact(10)
+     
+    fmt.Println(n)         
+}
+
+3628800
+
+Program exited.
+
+8)
+
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func recurse() {
+    fmt.Println("Endless!")
+    recurse()
+}
+ 
+func main() {
+    
+}
+
+Program exited.
+
+9)
+
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func fib(n int) int {
+    if (n == 0) {
+        return 0
+    } else if(n == 1) {
+        return 1
+    } else {
+        return fib(n-1) + fib(n-2)
+    }
+}
+ 
+func main() {
+    fmt.Println(fib(7))  
+}
+
+13
+
+Program exited.
+
+10)
+
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func f(v int) {
+    if(v == 0) {
+        fmt.Println("Zero")
+        return
+    } else {
+        fmt.Println(v)
+        f(v-1)               
+    }
+}
+ 
+func main() {
+    f(5)
+     
+    
+}
+
+5
+4
+3
+2
+1
+Zero
+
+Program exited.

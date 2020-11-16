@@ -1,0 +1,169 @@
+1)
+
+package main
+
+import "fmt"
+
+func main() {
+   var sum int = 5
+   var count int = 3
+   var mean float32
+   
+   mean = float32(sum)/float32(count)
+   fmt.Printf("Value of mean : %f\n",mean)
+}
+
+Value of mean : 1.666667
+
+Program exited.
+
+2)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    var totalsum int = 20 
+    var number int = 10 
+    var avg float32 
+  
+    
+    avg = float32(totalsum) / float32(number) 
+  
+    
+    fmt.Printf("Average = %f\n", avg) 
+}
+
+Average = 2.000000
+
+Program exited.
+
+3)
+
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	var x, y int = 3, 4
+	var f float64 = math.Sqrt(float64(x*x + y*y))
+	var z uint = uint(f)
+	fmt.Println(x, y, z)
+}
+
+3 4 5
+
+Program exited.
+
+4)
+
+package main
+
+import "fmt"
+
+func main() {
+	x := 10 
+	fmt.Printf("x is of type %T\n", x)
+}
+x is of type int
+
+Program exited.
+
+5)
+
+package main
+ 
+import (
+    "fmt"
+    "strconv"
+)
+ 
+func main() {
+    var s string = "42"
+    v, _ := strconv.Atoi(s)       
+     
+    fmt.Println(v)    
+     
+    var i int = 42
+    str := strconv.Itoa(i)        
+     
+    fmt.Println(str) 
+}
+
+42
+42
+
+Program exited.
+
+6)
+
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func main() {     
+    f := 10.7677
+    i := int(f)  
+fmt.Println(i) 
+     
+    ii := 34
+    ff := float64(ii)
+     
+    fmt.Println(ff)     
+}
+
+10
+34
+
+Program exited.
+
+7)
+
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func main() {
+    var s string = "kloud one"
+    var b []byte = []byte(s)     
+     
+    fmt.Println(b)  
+    ss := string(b)              
+    fmt.Println(ss)     
+}
+
+[107 108 111 117 100 32 111 110 101]
+kloud one
+
+Program exited.
+
+8)
+package main
+ 
+import (
+    "fmt"
+)
+ 
+func main() {
+    a := 6/3        
+    f := 6.3/3      
+     
+    fmt.Println(a, f)     
+}
+
+
+2 2.1
+
+Program exited.
+
+
