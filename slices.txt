@@ -1,0 +1,277 @@
+1)
+
+package main
+
+import "fmt"
+
+func main() {
+   var numbers = make([]int,3,5)
+   printSlice(numbers)
+}
+func printSlice(x []int){
+   fmt.Printf("len=%d\n cap=%d\n slice=%v\n",len(x),cap(x),x)
+}
+
+len=3
+ cap=5
+ slice=[0 0 0]
+
+Program exited.
+
+2)
+
+package main
+
+import "fmt"
+
+func main() {
+   var numbers []int
+   printSlice(numbers)
+   
+   if(numbers == nil){
+      fmt.Printf("slice is nil")
+   }
+}
+func printSlice(x []int){
+   fmt.Printf("len = %d\n cap = %d\n slice = %v\n", len(x), cap(x),x)
+}
+
+
+len = 0
+ cap = 0
+ slice = []
+slice is nil
+Program exited.
+
+3)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    arr := [7]string{"This", "is", "the", "tutorial", 
+                         "of", "Go", "language"} 
+  
+    
+    fmt.Println("Array:", arr) 
+  
+    
+    myslice := arr[1:6] 
+  
+   
+    fmt.Println("Slice:", myslice) 
+  
+    
+    fmt.Printf("Length of the slice: %d", len(myslice)) 
+  
+    
+    fmt.Printf("\nCapacity of the slice: %d", cap(myslice)) 
+} 
+
+Array: [This is the tutorial of Go language]
+Slice: [is the tutorial of Go]
+Length of the slice: 5
+Capacity of the slice: 6
+Program exited.
+
+4)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    var my_slice_1 = []string{"kloud", "one", "kloudlearn"} 
+  
+    fmt.Println("My Slice 1:", my_slice_1) 
+  
+    
+    my_slice_2 := []int{2, 4, 6, 8, 10, 12, 14} 
+    fmt.Println("My Slice 2:", my_slice_2) 
+} 
+
+My Slice 1: [kloud one kloudlearn]
+My Slice 2: [2 4 6 8 10 12 14]
+
+Program exited.
+
+5)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    arr := [4]string{"kloud", "one", "kloud","learn"} 
+  
+    
+    var slice1 = arr[1:2] 
+    slice2 := arr[0:] 
+    slice3 := arr[:2] 
+    slice4 := arr[:] 
+  
+    
+    fmt.Println("My Array: ", arr) 
+    fmt.Println(" slice1: ", slice1) 
+    fmt.Println(" slice2: ", slice2) 
+    fmt.Println("slice3: ", slice3) 
+    fmt.Println(" slice4: ", slice4) 
+} 
+
+My Array:  [kloud one kloud learn]
+ slice1:  [one]
+ slice2:  [kloud one kloud learn]
+slice3:  [kloud one]
+ slice4:  [kloud one kloud learn]
+
+Program exited.
+
+6)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    myslice := []string{"This", "is", "the", 
+        "tutorial", "of", "Go", "language"} 
+  
+    
+    for _, ele := range myslice { 
+        fmt.Printf("Element = %s\n", ele) 
+    } 
+} 
+
+
+Element = This
+Element = is
+Element = the
+Element = tutorial
+Element = of
+Element = Go
+Element = language
+
+Program exited.
+
+7)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    var slice [5]string 
+    fmt.Printf("Length = %d\n", len(slice)) 
+    fmt.Printf("Capacity = %d ", cap(slice)) 
+  
+} 
+
+Length = 5
+Capacity = 5 
+Program exited.
+
+8)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+   
+    arr := [6]int{55, 66, 77, 88, 99, 22} 
+    slc := arr[0:4] 
+  
+    
+  
+    fmt.Println("Original_Array: ", arr) 
+    fmt.Println("Original_Slice: ", slc) 
+  
+    
+    slc[0] = 33 
+    slc[1] = 22 
+    slc[2] = 11 
+  
+    fmt.Println("\nNew_Array: ", arr) 
+    fmt.Println("New_Slice: ", slc) 
+}
+
+Original_Array:  [55 66 77 88 99 22]
+Original_Slice:  [55 66 77 88]
+
+New_Array:  [33 22 11 88 99 22]
+New_Slice:  [33 22 11 88]
+
+Program exited.
+
+9)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    s1 := []int{12, 34, 56} 
+    var s2 []int
+  
+    
+    /*s3:= []int{23, 45, 66} 
+      fmt.Println(s1==s3) 
+     */
+  
+    
+    fmt.Println(s1 == nil) 
+    fmt.Println(s2 == nil) 
+}
+
+false
+true
+
+Program exited.
+
+10)
+
+package main 
+  
+import "fmt"
+  
+func main() { 
+  
+    
+    s1 := [][]int{{9, 10}, 
+        {11, 12}, 
+        {13, 14}, 
+        {15, 16}, 
+    } 
+  
+    
+    fmt.Println("Slice 1 : ", s1) 
+  
+    
+    s2 := [][]string{ 
+        []string{"kloud", "one"}, 
+        []string{"kloud", "learn"}, 
+        []string{"kloud", "one"}, 
+    } 
+  
+   
+    fmt.Println("Slice 2 : ", s2) 
+}
+
+Slice 1 :  [[9 10] [11 12] [13 14] [15 16]]
+Slice 2 :  [[kloud one] [kloud learn] [kloud one]]
+
+Program exited
